@@ -4,14 +4,15 @@ import { FaChevronLeft, FaChevronRight, FaQuoteRight } from 'react-icons/fa'
 
 const Review = () => {
   const [index, setIndex] = useState(0)
-  const { id, name, job, image, text } = people(index)
-  const checkIndex = () => {
-    if (index > people.length - 1) {
+  const { name, job, image, text } = people[index]
+  const checkIndex = (number) => {
+    if (number > people.length - 1) {
       return 0
     }
-    if (index < 0) {
+    if (number < 0) {
       return people.length - 1
     }
+    return number
   }
   const moveRight = () => {
     const person = index + 1
@@ -22,14 +23,17 @@ const Review = () => {
     setIndex(checkIndex(person))
   }
   const random = () => {
-    let person = Math.floor(Math.random(index * people.length))
+    let person = Math.floor(Math.random() * people.length)
+    if (person === index) {
+      person = index + 1
+    }
     setIndex(checkIndex(person))
   }
   return (
     <article className='review'>
-      <div className='image-container'>
-        <img src={image} alt={name} />
-        <span className='quot-icon'>
+      <div className='img-container'>
+        <img src={image} alt={name} className='person-img' />
+        <span className='quote-icon'>
           <FaQuoteRight />
         </span>
       </div>
