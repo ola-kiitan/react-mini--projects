@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { showLoading, hideLoading } from './Loading'
+// import { showLoading, hideLoading } from './Loading'
 import Tour from './Tour'
 const url = 'https://course-api.com/react-tours-project'
-export default function fetchTours() {
+export default function FetchTours() {
   const [tours, setTours] = useState([])
   const removeTour = (id) => {
     const newTours = tours.filter((tour) => tour.id != id)
     setTours(newTours)
   }
   const getTours = async () => {
-    showLoading()
+    // showLoading()
     try {
       const response = await fetch(url)
       const tours = await response.json()
       console.log(tours)
-      hideLoading()
+      // hideLoading()
       setTours(tours)
     } catch (error) {
-      hideLoading()
+      // hideLoading()
       console.log(error)
     }
   }
@@ -28,6 +28,9 @@ export default function fetchTours() {
     return (
       <main>
         <h2>No tours left</h2>
+        <button className='btns' onClick={getTours}>
+          refresh
+        </button>
       </main>
     )
   }
@@ -37,7 +40,7 @@ export default function fetchTours() {
         <h2>our tours</h2>
         <div className='underline'></div>
       </div>
-      <div>
+      <div className='section'>
         {tours.map((tour) => {
           return <Tour key={tour.id} {...tour} removeTour={removeTour} />
         })}

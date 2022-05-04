@@ -1,9 +1,9 @@
 import React from 'react'
-import fetchTours from './fetchTours'
+import FetchTours from './fetchTours'
 const Tours = () => {
   return (
     <div>
-      <fetchTours></fetchTours>
+      <FetchTours />
     </div>
   )
 }
