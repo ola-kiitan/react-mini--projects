@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import List from './List'
-import Alert from './Alert'
+import Form from './copmonents/Form'
 
 function App() {
-  return <h2>grocery bud setup</h2>
+  return (
+    <section className='section-center'>
+      <Form />
+    </section>
+  )
 }
 
 export default App
