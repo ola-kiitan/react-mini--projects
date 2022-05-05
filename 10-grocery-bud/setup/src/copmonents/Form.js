@@ -1,4 +1,3 @@
-import React from 'react'
 import React, { useState, useEffect } from 'react'
 import List from './List'
 import Alert from './Alert'
@@ -37,7 +36,7 @@ export default function Form() {
       showAlert(true, 'item added', 'success')
       const newInput = { id: new Date().getTime().toString(), title: input }
       setList(() => {
-        setList([...list, newInput])
+        return [...list, newInput]
       })
       setInput('')
     }
@@ -51,24 +50,24 @@ export default function Form() {
   }
   const deleteItem = (id) => {
     showAlert(true, 'item deleted', 'danger')
-    const newList = list.filter((item) => item.id != id)
+    const newList = list.filter((item) => item.id !== id)
     setList(newList)
   }
   const editItem = (id) => {
     const specificItem = list.find((item) => item.id === id)
     setEditId(id)
     setEdit(true)
-    setInput(specificItem)
+    setInput(specificItem.title)
   }
   useEffect(() => {
-    localStorage.setItem('list'.JSON.stringify(list))
+    localStorage.setItem('list', JSON.stringify(list))
   }, [list])
   return (
     <>
       <form className='grocery-form' onSubmit={handleSubmit}>
-        {alert.show && <Alert {...alert} removeAlert={showAlert} />}
+        {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
         <h3>Grocery bud</h3>
-        <div>
+        <div className='form-control'>
           <input
             type='text'
             className='grocery'
@@ -76,12 +75,12 @@ export default function Form() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
-          <button>{isEdit ? 'edit' : 'submit'}</button>
+          <button className='submit-btn'>{isEdit ? 'edit' : 'submit'}</button>
         </div>
       </form>
       {list.length > 0 && (
         <div className='grocery-container'>
-          <List items={list} delete={deleteItem} editItem={editItem} />
+          <List items={list} deleteItem={deleteItem} editItem={editItem} />
           <button className='clear-btn' onClick={clearList}>
             clear Items
           </button>
